@@ -1,8 +1,15 @@
 CC=gcc
 FLAGS=-lm -o
-FILES=main.c
+FILES=main.c operation.c
+OUT_FILE=geometry.out
 
 make:
-	${CC} ${FILES} ${FLAGS} geometry.out
+	${CC} ${FILES} ${FLAGS} ${OUT_FILE}
+
+run:
+	./${OUT_FILE}
+
 clean:
+	clear
 	rm -f *.out
+

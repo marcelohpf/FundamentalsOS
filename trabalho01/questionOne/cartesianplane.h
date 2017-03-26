@@ -1,5 +1,5 @@
-#IFNDEF CARTESIANPLANE
-#DEF CARTESIANPLANE
+#ifndef CARTESIANPLANE
+#define CARTESIANPLANE
 
 typedef struct point{
   double x;
@@ -11,6 +11,7 @@ typedef struct quadrilateral{
   Point B;
   Point C;
   Point D;
+  int number_side;
 } Quadrilateral;
 
-#ENDIF
+#endif

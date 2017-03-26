@@ -1,6 +1,6 @@
-#IFNDEF OPERATION
-#DEFINE OPERATION
-#include 'cartesianplane.h'
+#ifndef OPERATION
+#define OPERATION
+#include "cartesianplane.h"
 
 /* Determine if any quadrilateral is or not a convex polygon 
  * to determine that, was used this referece: 
@@ -8,6 +8,7 @@
  * based in orientation between a line and point
  * 1 - is convex
  * 0 - is not convex
+ * -1 - is not a quadrilateral object
  * */
 int is_convex(Quadrilateral quadrilateral);
 
@@ -29,4 +30,10 @@ double area(Quadrilateral quadrilateral);
  */
 int determinant(Point A, Point B, Point C);
 
-#ENDIF
+/* define a comparation to float point.
+ * In c file define a error aceptation as ER = 1 x 10^-12
+ * 1 - equals
+ * 0 - different
+ */
+int equals(double a, double b);
+#endif

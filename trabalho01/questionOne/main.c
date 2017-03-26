@@ -34,6 +34,8 @@ void testing(){
   int i=0;
   for(; i<4; i++)
     printf("{%lf %lf} ", K[i].x,K[i].y);
+  printf("distance A->B: %lf", distance(D,B));
+
   printf("\ndeterminant direction: ");
   Point L[3] = {C, D, E};
   for(i =0; i<3; i++)

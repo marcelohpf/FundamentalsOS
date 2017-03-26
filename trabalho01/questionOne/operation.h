@@ -30,6 +30,11 @@ double area(Quadrilateral quadrilateral);
  */
 int determinant(Point A, Point B, Point C);
 
+/* calculate the distance between 2 points in euclidian space
+ * use native c implementation of hypotenuse
+ */
+double distance(Point A, Point B);
+
 /* define a comparation to float point.
  * In c file define a error aceptation as ER = 1 x 10^-12
  * 1 - equals

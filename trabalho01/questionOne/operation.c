@@ -49,6 +49,10 @@ double area(Quadrilateral quadrilateral){
   return area;
 }
 
+double distance(Point A, Point B){
+  return hypot(A.x-B.x, A.y-B.y);
+}
+
 int equals(double a, double b){
   return fabs(a-b) < ER;
 }

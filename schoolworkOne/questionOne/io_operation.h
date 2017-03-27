@@ -3,6 +3,9 @@
 #include "cartesianplane.h"
 #include <stdio.h>
 
+/* The main loop of this application */
+int menu();
+
 /* receive pair of double values and return a point */
 Point in_point();
 

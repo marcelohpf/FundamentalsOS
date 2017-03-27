@@ -1,6 +1,19 @@
 #include "io_operation.h"
 #include "operation.h"
+#include <stdlib.h>
 
+int menu(){
+  int keep = 1;
+  while(keep) {
+    Quadrilateral quadrilateral = in_quadrilateral();
+    geometry_output(quadrilateral);
+    printf("0 -> exit\n1 -> continue\n");
+    scanf("%d",&keep);
+    printf("\n");
+  }
+  printf("exiting\n");
+  return keep;
+}
 Quadrilateral in_quadrilateral(){
   Quadrilateral quadrilateral;
   quadrilateral.number_side = 4;
@@ -15,6 +28,7 @@ Quadrilateral in_quadrilateral(){
 Point in_point(){
   Point point;
   int read = 0;
+  int count =0;
   while(!read){
     double x,y; // Values of cordinates (x,y) of cartesian plan
     read = (scanf("%lf %lf",&x,&y) == 2);
@@ -24,6 +38,11 @@ Point in_point(){
       point.x = x;
       point.y = y;
     }
+    if(count++ > 10){
+      perror("Aborting, too many attemps");
+      exit(0);
+    }
+
   }
 
   return point;

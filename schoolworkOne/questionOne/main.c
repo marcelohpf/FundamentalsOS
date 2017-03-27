@@ -5,8 +5,7 @@
 
 void testing();
 int main(){
-  Quadrilateral quadrilateral = in_quadrilateral();
-  geometry_output(quadrilateral);
+  menu();
   return 0;
 }
 

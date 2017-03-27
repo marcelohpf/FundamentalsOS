@@ -66,9 +66,9 @@ int convex_output(Quadrilateral quadrilateral){
   if(convex == 1){
     printf("Quadrilatero convexo\n");
   } else if(convex == -1){
-    printf("Não é convexo\n");
-  } else {
     printf("Não é um quadrilatero\n");
+  } else {
+    printf("Não é convexo\n");
   }
   return convex;
 }

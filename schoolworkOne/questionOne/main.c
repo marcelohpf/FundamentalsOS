@@ -1,12 +1,15 @@
 #include <stdio.h>
 #include "operation.h"
 #include "cartesianplane.h"
+#include "io_operation.h"
 
 void testing();
 int main(){
-  testing();
+  Quadrilateral quadrilateral = in_quadrilateral();
+  geometry_output(quadrilateral);
   return 0;
 }
+
 void testing(){
   printf("Creating points\n");
 

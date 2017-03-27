@@ -1,4 +1,16 @@
-#include 'io_operation.h'
+#include "io_operation.h"
+#include "operation.h"
+
+Quadrilateral in_quadrilateral(){
+  Quadrilateral quadrilateral;
+  quadrilateral.number_side = 4;
+
+  quadrilateral.A = in_point();
+  quadrilateral.B = in_point();
+  quadrilateral.C = in_point();
+  quadrilateral.D = in_point();
+  return quadrilateral;
+}
 
 Point in_point(){
   Point point;
@@ -14,19 +26,45 @@ Point in_point(){
     }
   }
 
-
   return point;
 }
 
-Quadrilateral in_quadrilateral(){
-  Quadrilateral quadrilateral;
+void geometry_output(Quadrilateral quadrilateral){
+  show_points_distance(quadrilateral);
+  convex_output(quadrilateral);
+  area_output(quadrilateral);
+}
 
-  quadrilateral.A = in_point();
-  quadrilateral.B = in_point();
-  quadrilateral.C = in_point();
-  quadrilateral.D = in_point();
-  return quadrilateral;
+void area_output(Quadrilateral quadrilateral){
+  if(is_convex(quadrilateral) == 1){
+    double area_quadrilateral = area(quadrilateral);
+    printf("Área: %.12lf\n", area_quadrilateral);
+  }
+}
+
+int convex_output(Quadrilateral quadrilateral){
+  int convex = is_convex(quadrilateral);
+  if(convex == 1){
+    printf("Quadrilatero convexo\n");
+  } else if(convex == -1){
+    printf("Não é convexo\n");
+  } else {
+    printf("Não é um quadrilatero\n");
+  }
+  return convex;
 }
 
 
-
+void show_points_distance(Quadrilateral quadrilateral){
+  Point points[5] = {quadrilateral.A, quadrilateral.B, quadrilateral.C,
+                    quadrilateral.D, quadrilateral.A};
+  char point_letter[5] = {'A','B','C','D','A'};
+  int point = 0;
+  printf("Distancias entre os pontos:\n");
+  for(point = 0; point < 4; point ++){
+    printf("\t%c->%c: %.12lf\n", point_letter[point],
+            point_letter[point+1], 
+            distance(points[point], 
+            points[point+1]));
+  }
+}

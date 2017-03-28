@@ -36,10 +36,10 @@ int * grow(int * v, int * actual_size) {
 	return new_v;
 }
 
-void insert_list(int a, Lista * lista) {
+void insert_list(int a, Lista l) {
 	if(l.size == l.current_size) {
 		l.vector = grow(l.vector, &l.size);
 	} else {
-		l.vector[current_size++] = a;
+		l.vector[l.current_size++] = a;
 	}
 }

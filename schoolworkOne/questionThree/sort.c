@@ -26,7 +26,7 @@ void basc_sort(Lista l, char * ordem) {
 
 int * grow(int * v, int * actual_size) {
 	int n_size = *actual_size * 2;
-	int * new_v = (int*)malloc(sizeof(int)*n_size);
+	int * new_v = (int*)malloc(sizeof(int) * n_size);
 	int i;
 	for(i = 0; i < *actual_size; i++) {
 		new_v[i] = v[i];	

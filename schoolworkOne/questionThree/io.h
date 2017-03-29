@@ -1,5 +1,5 @@
-#ifndef INOUT
-#define INOUT
+#ifndef IO
+#define IO
 #include "sort.h"
 
 Lista input(Lista lista);

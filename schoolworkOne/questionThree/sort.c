@@ -4,11 +4,12 @@
 #include <stdlib.h>
 
 int compare(int a, int b, char * ordem) {
-	if(strcmp("-d", ordem)) {
-		return a > b;
-	} else if(strcmp("-r", ordem)) {
+	if(strcmp("-d", ordem) == 0) {
 		return a < b;
+	} else if(strcmp("-r", ordem)==0) {
+		return a > b;
 	}
+	return 0;
 }
 
 void basc_sort(Lista l, char * ordem) {
@@ -36,10 +37,10 @@ int * grow(int * v, int * actual_size) {
 	return new_v;
 }
 
-void insert_list(int a, Lista l) {
-	if(l.size == l.current_size) {
-		l.vector = grow(l.vector, &l.size);
-	} else {
-		l.vector[l.current_size++] = a;
+void insert_list(int a, Lista * l) {
+	if(l->size == l->current_size) {
+		l->vector = grow(l->vector, &l->size);
 	}
+	l->vector[l->current_size++] = a;
+
 }

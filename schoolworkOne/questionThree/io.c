@@ -1,4 +1,4 @@
-#include "inout.h"
+#include "io.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,7 +10,7 @@ Lista input(Lista l) {
 		if(value == -1) {
 			break;
 		}
-		insert_list(value, l);
+		insert_list(value, &l);
 	}
 	return l;
 }
@@ -18,12 +18,12 @@ Lista input(Lista l) {
 void output(Lista l, char * ordem) {
 	int i;
 	basc_sort(l, ordem);
-	if(strcmp("-d", ordem)) {
-		printf("Ordem crescente:\n");
-	} else if(strcmp("-r", ordem)) {
+	if(strcmp("-r", ordem) == 0) {
 		printf("Ordem decrescente:\n");
+	} else {
+		printf("Ordem crescente:\n");
 	}
-	for(i = 0; i < l.current.size; i++) {
+	for(i = 0; i < l.current_size; i++) {
 		printf("%d ", l.vector[i]);
 	}
 }

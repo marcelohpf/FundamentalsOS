@@ -61,6 +61,8 @@ Para executar um exemplo de input deve-se utilizar
 
 # Limitações
 
-A lista deverá ser de inteiros não negativos
+A lista deverá ser de **inteiros** não negativos
 
 O usuário devera inserir o número -1 para dizer que a lista ja possui todos os integrantes
+
+O array cresce dinamicamente e sempre que está cheio duplica o espaço para evitar ficar copiando os dados com maior frequencia.

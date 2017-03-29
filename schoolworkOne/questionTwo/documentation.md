@@ -6,7 +6,7 @@
 
 Elaborar um programa utilizando código C para relembrar a sintaxe e estrutura de programas em código C.
 
-Receber conjuntos de 4 coordenadas (X,Y) de um quadrilátero e indicar se este é convexo, e caso seja, exibir sua área.
+Receber um programa que receba argumentos de entrada na execução do programa e exibir estes argumentos.
 
 # Ambiente
 
@@ -39,33 +39,23 @@ As informações sobre o ambiente de compilação e construção estão citados 
 Para compilar este projeto, basta executar o comando a seguir
   
     make
-    make run
+    ./arguments.out {parâmetros}
 
 Para executar um exemplo de input deve-se utilizar
     
-    make run < input.txt
+    make teste
 
 # Instruções de uso
 
-O primeiro conjunto de entrada no código são quatro pares de números com ponto flutuante ou não.
-
-    0 0
-    0 1
-    1 1
-    1 0
-
-Em seguida, será perguntado se deseja adicionar um novo conjunto de pares.
-
-    0 -> exit
-    1 -> continue
-
-Ao pressionar 0 e dar enter o programa encerrará.
-Ao pressionar outra tecla, que seja lido como um valor diferente de 0, o programa continuará a executar
+Não há telas de interação, portanto basta executar o programa enviando argumentos e ver o resultado.
 
 # Limitações
 
-Só funciona para entradas de pontos no sentido horário.
+É assumido que o sistema de arquivos trabalha com o direcionamento de diretórios o /. Caso contrário, o nome do programa pode retornar o nome do executável contendo todo o caminho.
+Exemplo: 
+    
+    /home/usuario/fso/programa1.out
+    > programa1.out
 
-Não processa área para poligonos convexos com quantidade de lados < 4
-
-Os cálculos são feitos com pontos flutuantes, e isso diminui a precisão. A precisão exibida foi de ```1 x 10^-12```.
+    C:\\user\programa1.out
+    > C:\\user\programa1.out

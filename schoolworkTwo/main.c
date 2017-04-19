@@ -63,6 +63,9 @@ int main(){
             close(active_fd[1]);
             close(lazy_fd[1]);
             int i=0;
+            FILE* f = fopen("/tmp/a.txt","w");
+            fprintf(f,"New execution\n");
+            fclose(f);
 
             while(1){
             FD_ZERO(&read_set);
@@ -97,11 +100,12 @@ int main(){
                         printf("EOF pipe lazy");
                      }
                     } else {
-                        printf("f");
+                        perror("no identified fd in select\n");
                     }
                 } else {
-                  sleep(1);
-                  printf("[%d, %d]\n", lazy_fd[0], active_fd[0]);
+                  //sleep(1);
+                  //printf("[%d, %d]\n", lazy_fd[0], active_fd[0]);
+                  i++;
                 }
             }
             printf("\n");

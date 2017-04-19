@@ -73,24 +73,10 @@ int main(){
               } else if(retval){
                 if(FD_ISSET(active_fd[0], &read_set)){
                   int readed = read(active_fd[0], &buffer, sizeof(buffer));
-                  if(readed==-1) perror("problem to read pipe");
-                  else if(readed){
-                    char * timestamp = get_time(start);
-                    write_file(buffer, timestamp);
-                    free(timestamp);
-                  } else {
-                    printf("EOF pipe active");
-                  }
+                  write_loaded_pipe(readed, buffer, start);
                 } else if (FD_ISSET(lazy_fd[0], &read_set)){
                   int readed = read(lazy_fd[0], &buffer, sizeof(buffer));
-                  if(readed==-1) perror("problem to read pipe");
-                  else if(readed){
-                    char * timestamp = get_time(start);
-                    write_file(buffer, timestamp);
-                    free(timestamp);
-                  } else {
-                    printf("EOF pipe lazy");
-                  }
+                  write_loaded_pipe(readed, buffer, start);
                 } else {
                   perror("no identified fd in select\n");
                 }

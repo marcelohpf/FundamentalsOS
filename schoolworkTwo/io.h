@@ -14,4 +14,6 @@ void lazy_pipe(int fd, char *buffer, size_t buffer_size, int i, struct timespec 
 void active_pipe(int fd, char *buffer, size_t buffer_size, int i, struct timespec start);
 
 void clean_file();
+
+void write_loaded_pipe(int readed, char* buffer, struct timespec start);
 #endif

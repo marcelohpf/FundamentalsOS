@@ -49,4 +49,14 @@ void active_pipe(int fd, char *buffer, size_t buffer_size, int i, struct timespe
   free(message);
 }
 
-//void read_pipe(
+void write_loaded_pipe(int readed, char* buffer, struct timespec start){
+  if(readed==-1) perror("problem to read pipe");
+  else if(readed){
+    char * timestamp = get_time(start);
+    write_file(buffer, timestamp);
+    free(timestamp);
+  } else {
+    printf("EOF pipe active");
+  }
+
+}

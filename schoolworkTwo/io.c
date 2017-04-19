@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+#include <time.h>
+#include "timestamp.h"
 
 const char FILE_OUTPUT[] = "./output.txt";
 
@@ -13,6 +16,10 @@ void read_line(char * buffer, size_t size_buffer){
   }
 }
 
+void clean_file(){
+  FILE* f = fopen(FILE_OUTPUT,"w");
+  fclose(f);
+}
 void write_file(char *content, char * timestamp){
   FILE* file = fopen(FILE_OUTPUT,"a");
   if(file!=NULL){
@@ -22,3 +29,24 @@ void write_file(char *content, char * timestamp){
     perror("Not able to open the file now");
   }
 }
+
+void lazy_pipe(int fd, char *buffer, size_t buffer_size, int i, struct timespec start){
+  char * message = get_time(start);
+  sprintf(buffer, "%s: Mensagem %.2d do filho dorminhoco", message, i);
+  free(message);
+  write(fd, buffer, buffer_size);
+  sleep(random_sleep_time());
+}
+
+
+void active_pipe(int fd, char *buffer, size_t buffer_size, int i, struct timespec start){
+  char *message = (char*) malloc(buffer_size);
+  read_line(message, sizeof(message));
+  char * timestamp = get_time(start);
+  sprintf(buffer, "%s: Mensagem %.2d do usuário: <%s>", timestamp, i, message);
+  write(fd, buffer,buffer_size);
+  free(timestamp);
+  free(message);
+}
+
+//void read_pipe(

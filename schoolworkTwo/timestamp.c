@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include "timestamp.h"
 #define NANO_TO_MILISECONDS 1000000
+
+
 char * get_time(struct timespec start){
 
   struct timespec end = timestamp();
@@ -13,7 +15,7 @@ char * get_time(struct timespec start){
   int miliseconds = total_time%1000;
   int seconds = total_time/1000;
   seconds %= 60;
-  printf("%ld %ld - %ld %ld\n",end.tv_sec, end.tv_nsec, start.tv_sec, start.tv_nsec);
+
   int minutes = total_time / 60000;
 
   sprintf(message, "%d:%.2d.%.3d",minutes, seconds%60, miliseconds);
@@ -31,4 +33,12 @@ struct timespec timestamp(){
 
   return now;
 
+}
+
+int random_sleep_time(){
+  long factor = RAND_MAX/3;
+  long random = rand();
+  if(random < factor) return 0;
+  else if(random > factor*2) return 1;
+  else return 2;
 }

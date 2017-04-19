@@ -12,4 +12,6 @@ char * get_time(struct timespec);
    */
 struct timespec timestamp();
 
+int random_sleep_time();
+
 #endif

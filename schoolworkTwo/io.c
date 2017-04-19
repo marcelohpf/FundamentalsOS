@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-const char FILE_OUTPUT = "./output.txt";
+const char FILE_OUTPUT[] = "./output.txt";
 
 void read_line(char * buffer, size_t size_buffer){
   if(getline(&buffer, &size_buffer, stdin) == -1){
@@ -13,18 +13,12 @@ void read_line(char * buffer, size_t size_buffer){
   }
 }
 
-void read_save_pipe(int fd, char * buffer, size_t size_buffer){
-
-  int readed = read(fd, &buffer, size_buffer);
-
-  if(readed==-1) {
-    perror("problem to read pipe");
-    exit(EXIT_FAILURE);
-  } else if(readed){
-    char * timestamp = get_time(start);
-    FILE* f = fopen(FILE_OUTPUT,"a");
-      fprintf(f,"%s: %s\n", timestamp, buffer);
-    fclose(f);
-    free(timestamp);
+void write_file(char *content, char * timestamp){
+  FILE* file = fopen(FILE_OUTPUT,"a");
+  if(file!=NULL){
+    fprintf(file,"%s: %s\n", timestamp, content);
+    fclose(file);
+  } else {
+    perror("Not able to open the file now");
   }
 }

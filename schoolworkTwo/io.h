@@ -5,8 +5,8 @@
  */
 void read_line(char * buffer, size_t size_buffer);
 
-/** Read a content from a pipe (FD) and write in default output file
- */
-void read_save_pipe(int df, char* buffer, size_t size_buffer);
+
+/** Write to default file the outputs */
+void write_file(char* content, char* timestamp);
 
 #endif

@@ -1,6 +1,6 @@
 CC=gcc
 FLAGS=-lm -o
-FILES=main.c timestamp.c
+FILES=main.c timestamp.c io.c
 OUT_FILE=pc.out
 
 make:

@@ -29,6 +29,7 @@ struct timespec timestamp(){
 
   if(clock_gettime(CLOCK_MONOTONIC, &now) == -1){
     perror("problem with get_time from clock");
+    exit(EXIT_FAILURE);
   }
 
   return now;

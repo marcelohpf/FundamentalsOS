@@ -57,6 +57,12 @@ Pode aceitar pontuações?
 
 Mas é claro que sim!
 
+Então, mandarei várias mensagens aleatórias!
+
+Tudo bem?
+
+Sim! Pois este não é o processo preguiçoso.
+
 # Limitações
 
 O buffer de envio de mensagens é limitado em apenas 499 caracteres mais 1 caractere para o \0.

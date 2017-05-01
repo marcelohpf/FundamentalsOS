@@ -1,0 +1,53 @@
+0:00.000: 0:00.000: Mensagem 01 do filho dorminhoco
+0:00.856: 0:00.856: Mensagem 01 do usuário: <Olá, processo>
+0:00.856: 0:00.856: Mensagem 02 do usuário: <>
+0:00.856: 0:00.856: Mensagem 03 do usuário: <Estou testando a entrada>
+0:00.857: 0:00.856: Mensagem 04 do usuário: <>
+0:00.857: 0:00.856: Mensagem 05 do usuário: <Pode aceitar pontuações?>
+0:00.857: 0:00.856: Mensagem 06 do usuário: <>
+0:00.857: 0:00.856: Mensagem 07 do usuário: <Mas é claro que sim!>
+0:00.857: 0:00.856: Mensagem 08 do usuário: <>
+0:00.857: 0:00.856: Mensagem 09 do usuário: <Então, mandarei várias mensagens aleatórias!>
+0:00.857: 0:00.856: Mensagem 10 do usuário: <>
+0:00.857: 0:00.856: Mensagem 11 do usuário: <Tudo bem?>
+0:00.857: 0:00.856: Mensagem 12 do usuário: <>
+0:00.857: 0:00.856: Mensagem 13 do usuário: <Sim! Pois este não é o processo preguiçoso.>
+0:01.000: 0:01.000: Mensagem 02 do filho dorminhoco
+0:02.162: 0:02.162: Mensagem 14 do usuário: <>
+0:03.000: 0:03.000: Mensagem 03 do filho dorminhoco
+0:04.000: 0:04.000: Mensagem 04 do filho dorminhoco
+0:04.331: 0:04.331: Mensagem 15 do usuário: <jio>
+0:05.000: 0:05.000: Mensagem 05 do filho dorminhoco
+0:06.000: 0:06.000: Mensagem 06 do filho dorminhoco
+0:06.001: 0:06.000: Mensagem 07 do filho dorminhoco
+0:06.010: 0:06.010: Mensagem 16 do usuário: <iuh>
+0:07.684: 0:07.684: Mensagem 17 do usuário: <ygk>
+0:08.001: 0:08.001: Mensagem 08 do filho dorminhoco
+0:09.001: 0:09.001: Mensagem 09 do filho dorminhoco
+0:09.001: 0:09.001: Mensagem 10 do filho dorminhoco
+0:09.003: 0:09.003: Mensagem 18 do usuário: <iugyt>
+0:10.276: 0:10.276: Mensagem 19 do usuário: <poiuyt>
+0:11.001: 0:11.001: Mensagem 11 do filho dorminhoco
+0:11.620: 0:11.620: Mensagem 20 do usuário: <ṕoiuy>
+0:13.001: 0:13.001: Mensagem 12 do filho dorminhoco
+0:13.474: 0:13.474: Mensagem 21 do usuário: <-0987654wasgvhbj>
+0:15.001: 0:15.001: Mensagem 13 do filho dorminhoco
+0:17.001: 0:17.001: Mensagem 14 do filho dorminhoco
+0:19.001: 0:19.001: Mensagem 15 do filho dorminhoco
+0:20.001: 0:20.001: Mensagem 16 do filho dorminhoco
+0:21.001: 0:21.001: Mensagem 17 do filho dorminhoco
+0:21.598: 0:21.598: Mensagem 22 do usuário: <]p´[lṕk øþø>
+0:23.002: 0:23.002: Mensagem 18 do filho dorminhoco
+0:24.002: 0:24.002: Mensagem 19 do filho dorminhoco
+0:24.002: 0:24.002: Mensagem 20 do filho dorminhoco
+0:24.559: 0:24.559: Mensagem 23 do usuário: <>
+0:25.974: 0:25.974: Mensagem 24 do usuário: <uhuhuh>
+0:26.002: 0:26.002: Mensagem 21 do filho dorminhoco
+0:26.002: 0:26.002: Mensagem 22 do filho dorminhoco
+0:26.002: 0:26.002: Mensagem 23 do filho dorminhoco
+0:26.002: 0:26.002: Mensagem 24 do filho dorminhoco
+0:27.002: 0:27.002: Mensagem 25 do filho dorminhoco
+0:27.002: 0:27.002: Mensagem 26 do filho dorminhoco
+0:29.002: 0:29.002: Mensagem 27 do filho dorminhoco
+0:29.002: 0:29.002: Mensagem 28 do filho dorminhoco
+0:29.002: 0:29.002: Mensagem 29 do filho dorminhoco

@@ -2,19 +2,29 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include <unistd.h>
+#include <signal.h>
+#include <time.h>
 #include "product_consumer.h"
 #define THREADS_NUMBER 3
 int run = 1;
 
+void user_interrupt_handle(int signal_received){
+  printf("[aviso]: Termino solicitado. Aguardando threads...\n");
+  run=0;
+  signal(SIGINT, user_interrupt_handle);
+}
 
 int main(){
+  signal(SIGINT, user_interrupt_handle);
+  srandom(time(NULL));
   pthread_attr_t attr[3];
   pthread_t tid[3];
   void * (*functions[])(void *data) = {productor, consumer, consumer};
   void * result;
   Data data;
-  data.count =0;
-  data.maxBuffer=0;
+  data.maxBuffer = 0;
+  data.productor_count=0;
+  data.consumer_count = 0;
   int thread;
 
   for(thread = 0;thread<THREADS_NUMBER; ++thread){
@@ -36,9 +46,6 @@ int main(){
 
   }
 
-  sleep(1);
-  printf("\n\n\n\n\n\n\n\n\nn\\n\nn\n\n\n\n\n\n\n\n\n\n\n\n");
-  run=0;
   for(thread = 0;thread < THREADS_NUMBER; ++thread){
 
     if(pthread_join(tid[thread], &result)!=0){
@@ -48,5 +55,15 @@ int main(){
 
   }
 
+  for(thread = 0;thread<THREADS_NUMBER; ++thread){
+
+    if(pthread_attr_destroy(&attr[thread])!=0){
+      perror("problem with destruction of thread attributes");
+      exit(EXIT_FAILURE);
+    }
+
+  }
+  printf("\n%d\n",data.maxBuffer);
+  printf("min: %d, max: %d\n",data.minmax.minimum,data.minmax.maximum);
   return 0;
 }

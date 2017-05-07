@@ -1,17 +1,17 @@
 #ifndef PCTHREAD
 #define PCTHREAD
 
-struct MinMax{
+typedef struct MinMax{
   int maximum;
   int minimum;
-};
-struct Data{
-  struct MinMax data;
+} MinMax;
+typedef struct Data{
+  MinMax data;
   int buffer[50];
   int count;
   int maxBuffer;
-};
+} Data;
 
-void producer(void *data);
-void consumer(void *data);
+void* productor(void *data);
+void* consumer(void *data);
 #endif

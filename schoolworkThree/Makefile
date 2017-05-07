@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-O2 -Wall -lm -pedantic
+CFLAGS=-O2 -Wall -lm -pedantic -pthread
 OBJDIR=obj
 BINDIR=bin
 SRCDIR=src
@@ -20,8 +20,9 @@ $(OBJDIR):
 $(BINDIR):
 	mkdir -p $(BINDIR)
 
-.PHONY: clean run
+.PHONY: clean run dist
 clean:
 	rm -Rf $(BINDIR) $(OBJDIR)
 run:
 	./bin/$(EXEC)
+dist: clean make

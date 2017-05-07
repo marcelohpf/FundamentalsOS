@@ -1,20 +1,23 @@
 #include <unistd.h>
 #include <stdio.h>
+#define PRODUCTOR_REST 100
+#define CONSUMER_REST 150
 
 extern int run;
-void producer(void* data){
+void* productor(void* data){
   while(run){
     printf("ola");
-    usleep(150);
+    usleep(PRODUCTOR_REST);
   }
   printf("fim consumer");
-
+  return NULL;
 }
 
-void consumer(void* data){
+void* consumer(void* data){
   while(run){
     printf("oi");
-    usleep(150);
+    usleep(CONSUMER_REST);
   }
   printf("fim consumer");
+  return NULL;
 }

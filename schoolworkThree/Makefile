@@ -20,6 +20,8 @@ $(OBJDIR):
 $(BINDIR):
 	mkdir -p $(BINDIR)
 
-.PHONY: clean
+.PHONY: clean run
 clean:
 	rm -Rf $(BINDIR) $(OBJDIR)
+run:
+	./bin/$(EXEC)

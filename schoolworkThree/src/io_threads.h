@@ -8,7 +8,8 @@ extern char * file_name;
 void end_write_log(FILE * , Data);
 void write_signal_log();
 void write_productor(int );
+void write_consumer(char, int);
 
-FILE * create_file_args(int, char **);
+void create_file_args(int, char **);
 FILE * open_file(char *);
 #endif

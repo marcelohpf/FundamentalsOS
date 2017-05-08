@@ -14,7 +14,7 @@ typedef struct Data{
   int buffer[BUFFER_SIZE];
   int productor_count;
   int consumer_count;
-  int maxBuffer;
+  int max_buffer;
   int count;
 } Data;
 
@@ -22,4 +22,5 @@ void* productor(void *);
 void* consumer(void *);
 void update_minmax(MinMax *, int, int*);
 int get_random();
+void handle_signal_log();
 #endif

@@ -3,6 +3,7 @@
 #include <pthread.h>
 #include <stdlib.h>
 #include "product_consumer.h"
+#include "io_threads.h"
 
 #define PRODUCTOR_REST 100
 #define CONSUMER_REST 150
@@ -15,22 +16,29 @@ void * productor(void * undefined_data){
   Data * data = (Data *)undefined_data;
 
   while(run){
-    pthread_mutex_lock(&locker);
     int number = get_random();
+    int error = 0;
+    pthread_mutex_lock(&locker);
     if(data->count < MAX_BUFFER_SIZE){
       data->buffer[data->productor_count] = number;
       data->count += 1;
-      data->productor_count = (data->productor_count+1)%MAX_BUFFER_SIZE;
     }else{
-      perror("[fatal]: Buffer full");
+      perror("[fatal]: Buffer full, ignoring the produced number");
+      error = 1;
     }
-    if(data->count > data->maxBuffer) data->maxBuffer = data->count;
-    printf("[produtor]: %d\n",number);
+    write_productor(number);
     pthread_mutex_unlock(&locker);
+    // Only this thread change the memory of max_buffer, is not critical
+    if(data->count > data->max_buffer){
+      data->max_buffer = data->count;
+    }
+    if(!error){
+      data->productor_count = (data->productor_count+1)%MAX_BUFFER_SIZE;
+    }
+    error = 0;
     usleep(PRODUCTOR_REST);
   }
 
-  printf("fim productor");
   return NULL;
 }
 
@@ -40,6 +48,7 @@ void * consumer(void * undefined_data){
   while(run || data->count){
     int number;
     pthread_mutex_lock(&locker);
+    printf(" (%d) ",data->count);
     if(data->count != 0){
       number = data->buffer[data->consumer_count];
       data->consumer_count = (data->consumer_count+1)%MAX_BUFFER_SIZE;
@@ -50,7 +59,6 @@ void * consumer(void * undefined_data){
     pthread_mutex_unlock(&locker);
     usleep(CONSUMER_REST);
   }
-  printf("fim consumer");
   return NULL;
 }
 
@@ -61,6 +69,7 @@ int get_random(){
   long random_number = random();
   return random_number - (RAND_MAX/2);
 }
+
 void update_minmax(MinMax * values, int number, int * first){
   if(*first){
     values->minimum = number;
@@ -70,4 +79,10 @@ void update_minmax(MinMax * values, int number, int * first){
     values->maximum = (values->maximum < number ? number:values->maximum);
     values->minimum = (values->minimum > number ? number:values->minimum);
   }
+}
+
+void handle_signal_log(){
+  pthread_mutex_lock(&locker);
+  write_signal_log();
+  pthread_mutex_unlock(&locker);
 }

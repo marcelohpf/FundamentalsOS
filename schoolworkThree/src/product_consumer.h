@@ -12,10 +12,10 @@ typedef struct MinMax{
 typedef struct Data{
   MinMax minmax;
   int buffer[BUFFER_SIZE];
-  int productor_count;
-  int consumer_count;
-  int max_buffer;
-  int count;
+  unsigned int productor_count;
+  unsigned int consumer_count;
+  unsigned int max_buffer;
+  unsigned int count;
 } Data;
 
 void* productor(void *);
@@ -23,4 +23,5 @@ void* consumer(void *);
 void update_minmax(MinMax *, int, int*);
 int get_random();
 void handle_signal_log();
+char compare_thread();
 #endif

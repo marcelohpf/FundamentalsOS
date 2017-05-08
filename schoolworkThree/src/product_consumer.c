@@ -7,10 +7,14 @@
 
 #define PRODUCTOR_REST 100
 #define CONSUMER_REST 150
+#define CONSUMER_A 1
 
-extern int run;
+extern unsigned int run;
+extern pthread_t tids[3];
+
 unsigned int MAX_BUFFER_SIZE = 50;
 pthread_mutex_t locker;
+pthread_mutex_t consumer_locker;
 
 void * productor(void * undefined_data){
   Data * data = (Data *)undefined_data;
@@ -22,11 +26,11 @@ void * productor(void * undefined_data){
     if(data->count < MAX_BUFFER_SIZE){
       data->buffer[data->productor_count] = number;
       data->count += 1;
+      write_productor(number);
     }else{
       perror("[fatal]: Buffer full, ignoring the produced number");
       error = 1;
     }
-    write_productor(number);
     pthread_mutex_unlock(&locker);
     // Only this thread change the memory of max_buffer, is not critical
     if(data->count > data->max_buffer){
@@ -34,6 +38,7 @@ void * productor(void * undefined_data){
     }
     if(!error){
       data->productor_count = (data->productor_count+1)%MAX_BUFFER_SIZE;
+
     }
     error = 0;
     usleep(PRODUCTOR_REST);
@@ -44,19 +49,27 @@ void * productor(void * undefined_data){
 
 void * consumer(void * undefined_data){
   Data * data = (Data *)undefined_data;
-  int first =1;
-  while(run || data->count){
+  int first = 1;
+  char letter = compare_thread();
+  while(run || data->count){ // Read all buffer when application receive a SIGINT
     int number;
+    int read = 0;
+
     pthread_mutex_lock(&locker);
-    printf(" (%d) ",data->count);
     if(data->count != 0){
       number = data->buffer[data->consumer_count];
-      data->consumer_count = (data->consumer_count+1)%MAX_BUFFER_SIZE;
       data->count -= 1;
-      update_minmax(&data->minmax, number, &first);
-      printf("[consumer]: %d\n",number);
+      data->consumer_count = (data->consumer_count+1)%MAX_BUFFER_SIZE;
+      write_consumer(letter, number);
+      read = 1;
     }
     pthread_mutex_unlock(&locker);
+    if(read){
+      pthread_mutex_lock(&consumer_locker);
+      update_minmax(&data->minmax, number, &first);
+      pthread_mutex_unlock(&consumer_locker);
+      read = 0;
+    }
     usleep(CONSUMER_REST);
   }
   return NULL;
@@ -85,4 +98,11 @@ void handle_signal_log(){
   pthread_mutex_lock(&locker);
   write_signal_log();
   pthread_mutex_unlock(&locker);
+}
+
+char compare_thread(){
+    pthread_t tid;
+
+    tid = pthread_self();
+    return (pthread_equal(tid,tids[CONSUMER_A]) ? 'a':'b');
 }

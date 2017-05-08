@@ -5,26 +5,21 @@
 #include <signal.h>
 #include <time.h>
 #include "product_consumer.h"
+#include "io_threads.h"
 #define THREADS_NUMBER 3
 int run = 1;
-
+extern char * file_name;
 void user_interrupt_handle(int signal_received){
-  printf("[aviso]: Termino solicitado. Aguardando threads...\n");
   run=0;
+  handle_signal_log();
   signal(SIGINT, user_interrupt_handle);
 }
+Data init_data();
+int main(int argc, char* argv[]){
 
-int main(){
   signal(SIGINT, user_interrupt_handle);
-  srandom(time(NULL));
+
   pthread_attr_t attr[3];
-  pthread_t tid[3];
-  void * (*functions[])(void *data) = {productor, consumer, consumer};
-  void * result;
-  Data data;
-  data.maxBuffer = 0;
-  data.productor_count=0;
-  data.consumer_count = 0;
   int thread;
 
   for(thread = 0;thread<THREADS_NUMBER; ++thread){
@@ -36,6 +31,11 @@ int main(){
 
   }
 
+  FILE * log =  create_file_args(argc, argv);
+  Data data = init_data(log);
+  pthread_t tid[3];
+  void * (*functions[])(void *data) = {productor, consumer, consumer};
+
   for(thread = 0;thread < THREADS_NUMBER; ++thread){
 
     if(pthread_create(&tid[thread], &attr[thread],
@@ -46,6 +46,7 @@ int main(){
 
   }
 
+  void * result;
   for(thread = 0;thread < THREADS_NUMBER; ++thread){
 
     if(pthread_join(tid[thread], &result)!=0){
@@ -63,7 +64,17 @@ int main(){
     }
 
   }
-  printf("\n%d\n",data.maxBuffer);
-  printf("min: %d, max: %d\n",data.minmax.minimum,data.minmax.maximum);
+  end_write_log(log, data);
+  end_write_log(stdout, data);
+  fclose(log);
   return 0;
+}
+Data init_data(){
+  Data data;
+  data.max_buffer = 0;
+  data.productor_count=0;
+  data.consumer_count = 0;
+  data.count = 0;
+  srandom(time(NULL));
+  return data;
 }

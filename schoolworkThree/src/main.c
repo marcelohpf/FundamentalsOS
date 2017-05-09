@@ -16,6 +16,8 @@ pthread_t tids[THREADS_NUMBER];
 
 Data init_data();
 void user_interrupt_handle(int signal_received);
+int max_value(MinMax max_a, MinMax max_b);
+int min_value(MinMax min_a, MinMax min_b);
 
 int main(int argc, char* argv[]){
 
@@ -54,6 +56,8 @@ int main(int argc, char* argv[]){
     }
 
   }
+  free(result);
+
 
   for(thread = 0; thread < THREADS_NUMBER; ++thread){
 
@@ -64,10 +68,13 @@ int main(int argc, char* argv[]){
 
   }
 
+  MinMax minmax;
+  minmax.minimum = min_value(data.minmax_a, data.minmax_b);
+  minmax.maximum = max_value(data.minmax_a, data.minmax_b);
   FILE * log =  open_file(file_name);
-  end_write_log(log, data);
-  end_write_log(stdout, data);
+  end_write_log(log, data.max_buffer, minmax);
   fclose(log);
+  end_write_log(stdout, data.max_buffer, minmax);
 
   return 0;
 }
@@ -86,4 +93,11 @@ Data init_data(){
   data.count = 0;
   srandom(time(NULL));
   return data;
+}
+
+int max_value(MinMax max_a, MinMax max_b){
+  return (max_a.maximum > max_b.maximum ? max_a.maximum: max_b.maximum);
+}
+int min_value(MinMax min_a, MinMax min_b){
+  return (min_a.minimum < min_b.minimum ? min_a.minimum: min_b.minimum);
 }

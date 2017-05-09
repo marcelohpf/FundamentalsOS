@@ -10,7 +10,8 @@ typedef struct MinMax{
 } MinMax;
 
 typedef struct Data{
-  MinMax minmax;
+  MinMax minmax_a;
+  MinMax minmax_b;
   int buffer[BUFFER_SIZE];
   unsigned int productor_count;
   unsigned int consumer_count;

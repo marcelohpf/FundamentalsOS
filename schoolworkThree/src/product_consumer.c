@@ -5,16 +5,17 @@
 #include "product_consumer.h"
 #include "io_threads.h"
 
-#define PRODUCTOR_REST 100
-#define CONSUMER_REST 150
+#define PRODUCTOR_REST 1000
+#define CONSUMER_REST 1500
 #define CONSUMER_A 1
+#define LETTER_A 97
+#define LETTER_B 98
 
 extern unsigned int run;
 extern pthread_t tids[3];
 
 unsigned int MAX_BUFFER_SIZE = 50;
 pthread_mutex_t locker;
-pthread_mutex_t consumer_locker;
 
 void * productor(void * undefined_data){
   Data * data = (Data *)undefined_data;
@@ -51,12 +52,13 @@ void * consumer(void * undefined_data){
   Data * data = (Data *)undefined_data;
   int first = 1;
   char letter = compare_thread();
-  while(run || data->count){ // Read all buffer when application receive a SIGINT
+  MinMax local_minmax;
+  while(run){
     int number;
     int read = 0;
 
     pthread_mutex_lock(&locker);
-    if(data->count != 0){
+    if(data->count != 0 && run){
       number = data->buffer[data->consumer_count];
       data->count -= 1;
       data->consumer_count = (data->consumer_count+1)%MAX_BUFFER_SIZE;
@@ -65,12 +67,15 @@ void * consumer(void * undefined_data){
     }
     pthread_mutex_unlock(&locker);
     if(read){
-      pthread_mutex_lock(&consumer_locker);
-      update_minmax(&data->minmax, number, &first);
-      pthread_mutex_unlock(&consumer_locker);
+      update_minmax(&local_minmax, number, &first);
       read = 0;
     }
     usleep(CONSUMER_REST);
+  }
+  if (letter == LETTER_A) {
+    data->minmax_a = local_minmax;
+  } else if (letter == LETTER_B) {
+    data->minmax_b = local_minmax;
   }
   return NULL;
 }

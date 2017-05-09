@@ -4,11 +4,11 @@
 #include "io_threads.h"
 
 char * file_name;
-void end_write_log(FILE * log_file, Data data){
+void end_write_log(FILE * log_file, int max_buffer, MinMax minmax){
 
-  fprintf(log_file, "[aviso]: Maior numero gerado: %d\n", data.minmax.maximum);
-  fprintf(log_file, "[aviso]: Menor numero gerado: %d\n", data.minmax.minimum);
-  fprintf(log_file, "[aviso]: Maior ocupacao de buffer: %d\n", data.max_buffer);
+  fprintf(log_file, "[aviso]: Maior numero gerado: %d\n", minmax.maximum);
+  fprintf(log_file, "[aviso]: Menor numero gerado: %d\n", minmax.minimum);
+  fprintf(log_file, "[aviso]: Maior ocupacao de buffer: %d\n", max_buffer);
   fprintf(log_file, "[aviso]: Aplicacao encerrada.\n");
 
 }

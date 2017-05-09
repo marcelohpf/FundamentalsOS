@@ -5,8 +5,8 @@
 #include "product_consumer.h"
 #include "io_threads.h"
 
-#define PRODUCTOR_REST 1000
-#define CONSUMER_REST 1500
+#define PRODUCTOR_REST 100000
+#define CONSUMER_REST 150000
 #define CONSUMER_A 1
 #define LETTER_A 97
 #define LETTER_B 98
@@ -23,16 +23,16 @@ void * productor(void * undefined_data){
   while(run){
     int number = get_random();
     int error = 0;
-    pthread_mutex_lock(&locker);
     if(data->count < MAX_BUFFER_SIZE){
+      pthread_mutex_lock(&locker);
       data->buffer[data->productor_count] = number;
       data->count += 1;
       write_productor(number);
+      pthread_mutex_unlock(&locker);
     }else{
       perror("[fatal]: Buffer full, ignoring the produced number");
       error = 1;
     }
-    pthread_mutex_unlock(&locker);
     // Only this thread change the memory of max_buffer, is not critical
     if(data->count > data->max_buffer){
       data->max_buffer = data->count;

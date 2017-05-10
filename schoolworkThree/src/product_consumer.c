@@ -85,7 +85,8 @@ void * consumer(void * undefined_data){
  */
 int get_random(){
   long random_number = random();
-  return random_number - (RAND_MAX/2);
+  long randon_mask = random();
+  return ((randon_mask & 1) == 0 ? random_number: -random_number);
 }
 
 void update_minmax(MinMax * values, int number, int * first){

@@ -34,3 +34,9 @@
 
 # vim tags
 tags
+
+# Temporary files vim
+*.swp
+
+# Binary files
+bin/

@@ -1,22 +1,35 @@
 CC=gcc
-CFLAGS=-O2 -Wall -pedantic
+CFLAGS=-O2 -Wall -pedantic -std=c11
 AR=ar
 ARFLAGS=cr
 OBJDIR=obj
 BINDIR=bin
 SRCDIR=src
 LIBDIR=lib
-LIBSO=$(LIBDIR)/dinamic
+LIBSO=$(LIBDIR)/dynamic
 LIBA=$(LIBDIR)/static
 EXEC=trigonometry
 OBJ=sin.o
 SRC=sin.c
 
-make: $(OBJDIR)/$(OBJ) $(LIBA)/libseno.a $(LIBSO)/libseno.so | $(BINDIR)
-	@echo Creating dinamic execution with liseno.so
+make: $(EXEC)_dl $(EXEC)_a $(EXEC)_d
+	@echo Creating all binaries in $(BINDIR)
+	rm -rf ./$(OBJDIR)
+	@echo Is necessary add the path $(shell pwd)/$(LIBSO) to library environment variable for correct execution of dynamic library
+	@echo $ export LD_LIBRARY_PATH=$(shell pwd)/$(LIBSO)
+	@echo $ export LIBPATH=$(shell pwd)/$(LIBSO)
+
+$(EXEC)_dl: $(LIBSO)/libseno.so | $(BINDIR)
+	@echo Creating dynamic execution with liseno.so
 	$(CC) $(CFLAGS) $(SRCDIR)/main.c -o $(BINDIR)/$(EXEC)_dl -L./$(LIBSO) -lseno
+
+$(EXEC)_a: $(OBJDIR)/$(OBJ) $(LIBA)/libseno.a | $(BINDIR)
 	@echo Creating static execution with libeno.a
 	$(CC) $(CFLAGS) $(SRCDIR)/main.c -o $(BINDIR)/$(EXEC)_a -L./$(LIBA) -lseno
+
+$(EXEC)_d: $(OBJDIR)/$(OBJ) $(LIBSO)/libseno.so | $(BINDIR)
+	@echo Creating dynamic execution over demand with libseno.so
+	$(CC) $(CFLAGS) $(SRCDIR)/main_demand.c -o $(BINDIR)/$(EXEC)_d -ldl
 
 $(LIBA)/libseno.a: $(OBJDIR)/$(OBJ) | $(LIBDIR)
 	$(AR) $(ARFLAGS) $@ $<
@@ -38,10 +51,10 @@ $(BINDIR):
 
 .PHONY: clean dist libclean fullclean
 clean:
-	rm -Rf $(BINDIR) $(OBJDIR)
+	rm -Rf ./$(BINDIR) ./$(OBJDIR)
 
 libclean:
-	rm -Rf $(LIBDIR)
+	rm -Rf ./$(LIBDIR)
 
 fullclean: libclean clean
 

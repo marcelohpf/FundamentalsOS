@@ -1,24 +1,24 @@
 #include "sin.h"
-#include <math.h>
+
+const int m = 19;
 
 double arc_sin(double rads){
-	double root = sqrt(1 - npow(rads, 2));
-	double angle = arc_tan(rads / root);
-  	return angle;
+	return rads;
 }
 
 double sin(double rads){
-	rads = rads - (npow(rads, 3) / fat(3)) + (npow(rads, 5) / fat(5)) - (npow(rads, 7) / fat(7)) + (npow(rads, 9) / fat(9));
-  	return rads;
+	double sum = rads;
+	int k = -1, i;
+	for(i = 3; i <= m; i += 2) {
+		sum += k * (elevate(rads, i) / fat(i));
+		k *= -1;
+	}
+	return sum;
 }
 
-double arc_tan(double rads){
-	double angle = rads - (npow(rads, 3) / 3.0) + (npow(rads, 5) / 5.0);
-	return angle;
-}
-
-long int npow(int x, int n){
-	int i, number = 1;
+double elevate(double x, int n){
+	int i;
+	double number = 1.0;
 	for(i = 0; i < n; i++) {
 		number *= x;
 	}

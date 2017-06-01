@@ -10,9 +10,9 @@ int main(int argc, char* argv[]){
       help();
       exit(EXIT_FAILURE);
     }else if(strcmp(argv[1],"-a")==0){
-      printf("%lf",arc_sin(atof(argv[2])));
+      printf("arc_seno (%s) = %lf\n",argv[2], arc_sin(atof(argv[2])));
     }else if(strcmp(argv[1],"-s")==0){
-      printf("%lf",sin(atof(argv[2])));
+      printf("seno (%s) = %lf\n",argv[2], sin(atof(argv[2])));
     } else {
       printf("As operações aceitas são -a|-b");
     }

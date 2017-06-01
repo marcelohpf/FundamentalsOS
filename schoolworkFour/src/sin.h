@@ -4,6 +4,7 @@
 double arc_sin(double);
 double sin(double);
 double elevate(double, int);
-long int fat(int);
+double fat(int);
+double fatt(int);
 
 #endif

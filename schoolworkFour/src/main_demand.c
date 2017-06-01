@@ -4,7 +4,7 @@
 #include <dlfcn.h>
 
 void help();
-void execute_dynamic_load(double, char*);
+double execute_dynamic_load(double, char*);
 
 int main(int argc, char* argv[]){
     if(argc != 3){
@@ -12,9 +12,9 @@ int main(int argc, char* argv[]){
       help();
       exit(EXIT_FAILURE);
     }else if(strcmp(argv[1],"-a")==0){
-      execute_dynamic_load(atof(argv[2]), "arc_sin");
+      printf("arc_seno (%s) = %lf\n", argv[2], execute_dynamic_load(atof(argv[2]), "arc_sin"));
     }else if(strcmp(argv[1],"-s")==0){
-      execute_dynamic_load(atof(argv[2]), "sin");
+      printf("seno (%s) = %lf\n", argv[2], execute_dynamic_load(atof(argv[2]), "sin"));
     } else {
       printf("As operações aceitas são -a|-b");
     }
@@ -27,7 +27,7 @@ void help(){
   printf("\tvalue valor do angulo em RAD, utilize '.' ao invés de ',' Ex.: 0.221\n");
 }
 
-void execute_dynamic_load(double rads, char * function_name){
+double execute_dynamic_load(double rads, char * function_name){
   void * handle = dlopen("libseno.so", RTLD_LAZY);
   if(!handle) {
     printf("%s\n", dlerror());
@@ -42,6 +42,7 @@ void execute_dynamic_load(double rads, char * function_name){
     exit(EXIT_FAILURE);
   }
 
-  printf("%lf\n", (*function)(rads) );
+  double result = (*function)(rads);
   dlclose(handle);
+  return result;
 }

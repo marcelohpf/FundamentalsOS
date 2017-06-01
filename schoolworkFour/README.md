@@ -89,29 +89,52 @@ Na pasta ./lib terão 2 pastas: dynamic e static, onde terão as respectivas bib
 
 Antes da execução das bibliotecas dinâmicas é necessário adicionar o caminho da biblioteca para o systema identificar onde buscar a biblioteca. `export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:caminho_para_a_pasta_bin_do_trabalho`.
 Nota-se que não é necessário adicionar o caminho para a execução da biblioteca estática trigonometry_a
+
     Exemplo:
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/mferreira/UnB/fso/schoolworkFour/lib/dynamic
 
 Após adicionar esse caminho a biblioteca, basta executar qualquer um dos binários. Executando com _a, _dl ou _d:
+
     ./bin/trigonometry_a [-s|-a] [Value]
+
 Em que -s é para seno e o -a é para o arcoseno, em seguida deve ser adicionado o valor do ângulo, ou seno em rads.
+
+## Exemplo de execução
+
+    ./bin/trigonometry_a -s 3.1415
+    seno (3.1415) = 0.000093
+    ./bin/trigonometry_a -a 0.0
+    arc_seno (0.0) = 0.000000
+
+    ./bin/trigonometry_dl -a 0.08
+    arc_seno (0.08) = 0.080086
+    ./bin/trigonometry_dl -s 3.1415
+    seno (3.1415) = 0.000093
+
+    ./bin/trigonometry_d -s 3.1415
+    seno (3.1415) = 0.000093
+    ./bin/trigonometry_d -a 0.009
+    arc_seno (0.009) = 0.009000
+
 
 # Limitações
 
-* As limitações identificadas estão relacionadas a quantidade de casas decimais das contas.
+* As limitações identificadas estão relacionadas a quantidade de casas decimais dos cálculos.
 * O programa precisa da variável de ambiente LD_LIBRARY_PATH, pois é exigido o sudo para adicionar a biblioteca no caminho do sistema para carregar automaticamente.
+* O projeto sofre influências dos resultados da propagação de erro em relação aos pontos flutuantes. Quando se trata da execução com muitas casas decimais próximas a |0.999|, o programa exibe comportamentos diferentes para os resultados mostrados.
 
 # Questões
 
 1. Para a resolução dos itens A e B do enunciado do trabalho, não foram necessárias nenhuma modificação no código. Mudou-se apenas a maneira de gerar as bibliotecas e a maneira de realizar a compilação de cada item, adicionando a biblioteca estática ou dinâmica.
 1. A criação de um link estático com a biblioteca impossibilita que esta seja trocada, ou seja, uma vez compilado o código, não há como alterar o comportamento da biblioteca utilizada. Diferentemente da utilização do link dinâmico, que possibilita que a biblioteca seja carregada em pelo loader. Isso indica que, é possível realizar a troca da biblioteca original, por uma customizada. Também é notável que, por ser carregada dinâmicamente, vários programas podem ter acesso a essa mesma biblioteca e reduzir a quantidade de código fonte carregado na memória, pois ela é carregada quando vai ser utilizada e esta mesma biblioteca pode ser compartilhada por vários programas.
+
 1. Relação das dependências:
     1. Estática
         1. Na compilação da aplicação com biblioteca estática é necessário apenas a utilização da libc e libseno. Para a execução não é necessária dependência nenhuma.
-        1. A posição desta biblioteca fica na área de texto (código fonte) do processo.
+        1. Como o código binário da biblioteca é copiado para a aplicação, não foi possível identificar a posição na memória.
     1. Dinâmica
         1. Para a compilação da biblioteca dinâmica, é necessário também, somente a libc e a libseno. Para a execução, é exigido que exista a biblioteca nos caminhos que o Sistema Operacional busca as bibliotecas, não é necessária nenhuma outra dependência.
-        1. Fica como armazenado em área de referência de memória do processo.
+        1. A posição da biblioteca na memória é a mesma localização, caso duas aplicações tenham subido simultaneamente, pois durante a compilação é utilizada a flag para criar biblioteca compartilhada, logo o SO sube apenas uma área de memória para o código, e todas as possíveis aplicações apenas referênciam esta área. Entretanto, ao terminar uma aplicação e iniciar outra, o SO aloca uma nova área de endereço de memória, pois a anterior foi removida, visto que não haviam mais programas utilizando-a.
     1. Sob demanda
         1. Para a compilação da aplicação, é exigido as bibliotecas libc e libdl, para que seja possível fazer uso da dlfcn.h. Para a execução é preciso também adicionar o caminho para encontrar a biblioteca.
-        1. Fica na área de heap do processo
+        1. O mesmo que o item anterior da Dinâmica

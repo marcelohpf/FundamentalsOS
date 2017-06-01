@@ -3,7 +3,15 @@
 const int m = 19;
 
 double arc_sin(double rads){
-	return rads;
+	double sum = rads;
+	double elevate_x, divisor;
+	int i;
+	for(i = 1; i < m; i++) {
+		elevate_x = elevate(rads, (2 * i + 1));
+		divisor = (fat(2 * i) / ((elevate(2, 2 * i) * (elevate(fat(i), 2)) * (2 * i + 1))));
+		sum += (elevate_x * divisor); 
+	}
+	return sum;
 }
 
 double sin(double rads){

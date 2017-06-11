@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-O2 -Wall -lm -pedantic -pthread
+CFLAGS=-O2 -Wall -pedantic
 OBJDIR=obj
 BINDIR=bin
 SRCDIR=src
